@@ -1,5 +1,3 @@
-import sys
-
 M = int(input())
 N = int(input())
 
@@ -13,6 +11,7 @@ location = [1, 1]
 path = []
 visited = []
 
+# backtracking
 def solve(location, path, visited):
     if location[0] == M and location[1] == N:
         return True

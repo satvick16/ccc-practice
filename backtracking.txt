@@ -1,0 +1,15 @@
+Backtracking:
+
+def solve(current location, finalized decisions, visited):
+	if destination is reached
+		return True
+	
+	append current location to visited
+
+	iterate through possibilities
+		if current possibility satisfies conditions and is not in visited
+			if solve(possibility, path, visited)
+				append location to path
+				return True
+
+	return False			
