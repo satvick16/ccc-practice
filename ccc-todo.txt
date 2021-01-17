@@ -1,0 +1,13 @@
+BFS/DFS/Graph theory
+Dynamic programming
+
+Divide-and-conquer
+Data structures
+Recursion
+
+For each topic:
+- read book chapters
+- use dmoj "see problem types feature"
+
+- easier problems: 3-5 points
+- harder problems: 7-10 points
