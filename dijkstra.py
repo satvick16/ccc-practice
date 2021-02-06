@@ -1,31 +1,32 @@
-import math
+'''
+adj = {1: [[b, w], [b, w]],
+       2: [[b, w]],
+       3: []}
+'''
 
 start = 1
 
-distance = [math.inf for i in range(n)]
-distance[start-1] = 0
+distance = [9999999 for i in range(N)]
+distance[start-1] = 1
 
 q = []
 q.append([0, start])
 
-visited = [False for i in range(n)]
-visited[start-1] = True
+processed = [False for i in range(N)]
 
 while len(q) > 0:
     a = q[0][1]
     q.pop(0)
 
-    if visited[a]:
+    if processed[a-1]:
         continue
+    
+    processed[a-1] = True
 
-    visited[a] = True
+    for u in adj[a]:
+        b = u[0]
+        w = u[1]
 
-    for neighbour in graph[a]:
-        b = i[0]
-        w = i[1]
-
-        if distance[a]+w < distance[b]:
-            distance[b] = distance[a] + w
-            q.append([-1 * distance[b], b])
-
-print(distance)
+        if distance[a-1]+w < distance[b-1]:
+            distance[b-1] = distance[a-1]+w
+            q.append([distance[b-1], b])

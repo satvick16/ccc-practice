@@ -1,74 +1,50 @@
-import math
-
 N = int(input())
 
-book = {}
+adj = {}
 
 for i in range(1, N+1):
-    book[i] = []
+    adj[i] = []
     page = list(input().split())
 
     for j in page[1:]:
-        book[i].append(int(j))
-
-queue = []
-visited = []
-distance = [0 for i in range(N)]
+        adj[i].append([int(j), 1])
 
 start = 1
-visited.append(1)
-distance[start-1] = 0
-queue.append(start)
 
-while len(queue) > 0:
-    s = queue.pop(0)
+distance = [9999999 for i in range(N)]
+distance[start-1] = 1
 
-    for neighbour in book[s]:
-        if neighbour in visited:
-            continue
+q = []
+q.append([0, start])
 
-        visited.append(neighbour)
-        distance[neighbour-1] = distance[s-1] + 1
-        queue.append(neighbour)
+processed = [False for i in range(N)]
 
-visited.sort()
+while len(q) > 0:
+    a = q[0][1]
+    q.pop(0)
 
-if visited == [i for i in range(1, N+1)]:
-    print("Y")
-else:
+    if processed[a-1]:
+        continue
+    
+    processed[a-1] = True
+
+    for u in adj[a]:
+        b = u[0]
+        w = u[1]
+
+        if distance[a-1]+w < distance[b-1]:
+            distance[b-1] = distance[a-1]+w
+            q.append([distance[b-1], b])
+
+if False in processed:
     print("N")
-
-##start = 1
-##
-##distance = [math.inf for i in range(N)]
-##distance[start-1] = 0
-##
-##q = []
-##q.append([0, start])
-##
-##visited = [False for i in range(N)]
-##visited[start-1] = True
-##
-##while len(q) > 0:
-##    a = q[0][1]
-##    q.pop(0)
-##
-##    if visited[a]:
-##        continue
-##
-##    visited[a] = True
-##
-##    for neighbour in book[a]:
-##        if distance[a-1]+1 < distance[b-1]:
-##            distance[b-1] = distance[a-1] + 1
-##            q.append([-1 * distance[b-1], b])
-##
-##print(distance)
+else:
+    print("Y")
 
 candidates = []
 
 for i in range(len(distance)):
-    if len(book[i+1]) == 0:
+    if len(adj[i+1]) == 0:
         candidates.append(distance[i])
 
-print(min(candidates)+1)
+print(min(candidates))
