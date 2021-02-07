@@ -1,39 +1,17 @@
-N = int(input())
+def ways(friends, n, x):
+    answer = 1
 
-tree = {}
+    for y in range(n-1):
+        if friends[y] == x:
+            answer = answer * (1 + ways(friends, n, y+1))
 
-for i in range(1, N+1):
-    tree[i] = []
+    return answer
 
-for i in range(1, N):
-    j = int(input())
-    tree[j].append(i)
+n = int(input())
 
-sets = [[]]
+friends = []
 
-def bfs(graph, start):
-    q = []
-    visited = []
-
-    visited.append(start)
-    q.append(start)
-
-    while len(q) > 0:
-        s = q.pop(0)
-
-        for child in graph[s]:
-            if child in visited:
-                continue
-
-            visited.append(child)
-            q.append(child)
-
-    return visited
-
-nones = {}
-
-for x, y in tree.items():
-    if y == []:
-        nones[] = 
-    else:
-        pass
+for i in range(1, n):
+    friends.append(int(input()))
+    
+print(ways(friends,n,n))
