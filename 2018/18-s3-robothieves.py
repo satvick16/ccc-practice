@@ -2,82 +2,53 @@ import sys
 
 N, M = map(int, sys.stdin.readline().split())
 
-room = []
+room = [[] for j in range(N)]
 
 for i in range(N):
-    x = sys.stdin.readline()
-    row = []
+    x = list(input())
+    room[i] = x
 
-    for char in x:
-        row.append(char)
-
-    room.append(row)
+dots = []
+graph = {}
 
 for i in range(N):
     for j in range(M):
+        if room[i][j] != "W":        
+            graph[(i, j)] = []
+
+            neighbours = [[i+1, j], [i, j+1], [i-1, j], [i, j-1]]
+
+            for neighbour in neighbours:
+                if room[neighbour[0]][neighbour[1]] != "W":
+                    graph[(i, j)].append([neighbour[0], neighbour[1]])
+        
         if room[i][j] == "S":
-            dots = []
-            
-            queue = []
-            visited = []
-            distance = []
-
-            for m in range(N):
-                row = []
-                for n in range(M):
-                    row.append(0)
-                distance.append(row)
-
             start = [i, j]
-            visited.append([i, j])
-            distance[i][j] = 0
-            queue.append([i, j])
+        if room[i][j] == ".":
+            dots.append([i, j])
 
-            while len(queue) > 0:
-                s = queue.pop(0)
+q = [start]
+visited = [[start[0], start[1]]]
+distance = [[0 for i in range(M)] for j in range(N)]
 
-                options = [[s[0]-1, s[1]], [s[0]+1, s[1]],
-                           [s[0], s[1]-1], [s[0], s[1]+1]]
+distance[start[0]][start[1]] = 0
 
-                for option in options:
-                    if [option[0], option[1]] in visited or room[option[0]][option[1]] == "W":
-                        continue
+while len(q) > 0:
+    s = q.pop(0)
 
-                    # check if camera is in line of sight
+    for neighbour in graph[tuple(s)]:
+        if neighbour in visited:
+            continue
 
-##                    surveilled = []
-##
-##                    for x in range(N):
-##                        for y in range(M):
-##                            if room[x][y] == "C":
-##                                
-
-                    if room[option[0]][option[1]] == ".":
-                        d = abs(option[0] - s[0] + option[1] - s[1])
-
-                        distance[option[0]][option[1]] = distance[s[0]][s[1]] + d
-
-                        dots.append([distance[option[0]][option[1]], option[0], option[1]])
-                        
-                    visited.append([option[0], option[1]])
-                    queue.append([option[0], option[1]])
-
-            queue = []
-            visited = []
-
-            for m in range(N):
-                for n in range(M):
-                    if room[m][n] == ".":
-                        dots_mod = []
-
-                        for dot in dots:
-                            dots_mod.append([dot[1], dot[2]])
-
-                        if [m, n] in dots_mod:                            
-                            for p in dots:
-                                if [p[1], p[2]] == [m, n]:
-                                    print(p[0])
-                        else:
-                            print(-1)
+        if room[neighbour[0]][neighbour[1]] == ".":
+            d = abs(neighbour[0] - s[0] + neighbour[1] - s[1])
+            distance[neighbour[0]][neighbour[1]] = distance[s[0]][s[1]] + d
             
-            sys.exit()
+        visited.append([neighbour[0], neighbour[1]])
+        q.append([neighbour[0], neighbour[1]])
+
+for dot in dots:
+    if distance[dot[0]][dot[1]] == 0:
+        print(-1)
+    else:
+        print(distance[dot[0]][dot[1]])
