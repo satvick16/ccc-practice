@@ -2,13 +2,11 @@ import sys
 
 N, M = map(int, sys.stdin.readline().split())
 
-comps = []
+comps = [[0, 0] for i in range(M)]
 
 for i in range(M):
     x, y = map(int, sys.stdin.readline().split())
-    comps.append([x, y])
-
-p, q = map(int, sys.stdin.readline().split())
+    comps[i] = [x, y]
 
 graph = {}
 
@@ -19,11 +17,13 @@ for comp in comps:
 for comp in comps:
     graph[comp[0]].append(comp[1])
 
+p, q = map(int, sys.stdin.readline().split())
+
 def bfs(graph, start, target, N):
     q = []
-    visited = []
+    visited = [False for i in range(N)]
 
-    visited.append(start)
+    visited[start-1] = True
     q.append(start)
 
     while len(q) > 0:
@@ -33,10 +33,10 @@ def bfs(graph, start, target, N):
             if child == target:
                 return True
             
-            if child in visited:
+            if visited[child-1]:
                 continue
 
-            visited.append(child)
+            visited[child-1] = True
             q.append(child)
 
     return False

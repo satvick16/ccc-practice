@@ -3,78 +3,36 @@ import sys
 M = int(sys.stdin.readline())
 N = int(sys.stdin.readline())
 
-room = []
+room = [[] for i in range(M)]
 
 for i in range(M):
-    row = list(map(int, sys.stdin.readline().split()))
-    room.append(row)
+    room[i] = list(map(int, sys.stdin.readline().split()))
 
-room[-1].append(-99999999999)
-
-q = []
-visited = []
-
-start = [0, 0]
-visited.append(start)
-q.append(start)
+q = [[0, 0]]
+visited = [[False for i in range(N)] for j in range(M)]
+visited[0][0] = True
 
 while len(q) > 0:
     s = q.pop(0)
 
-    if room[][] == -99999999999:
-        print("yes")
-        sys.exit()
-
     neighbours = []
 
-    for i in range(M):
-        for j in range(N):
-            if room[s[0]][s[1]] / i == j:
-                neighbours.append([i, j])
+    for i in range(1, int(room[s[0]][s[1]] ** 0.5 + 1)):
+        if room[s[0]][s[1]] % i == 0:
+            if i-1 < M and int((room[s[0]][s[1]] / i) - 1) < N:
+                neighbours.append([i-1, int((room[s[0]][s[1]] / i) - 1)])
+            if i-1 < N and int((room[s[0]][s[1]] / i) - 1) < M:
+                neighbours.append([int((room[s[0]][s[1]] / i) - 1), i-1])
 
-    for neighbour in neighbours:
-        if neighbour in visited:
+    for n in neighbours:
+        if n[0] == M-1 and n[1] == N-1:
+            print("yes")
+            sys.exit()
+        
+        if visited[n[0]][n[1]]:
             continue
 
-        visited.append(neighbour)
-        q.append(neighbour)
+        visited[n[0]][n[1]] = True
+        q.append([n[0], n[1]])
 
 print("no")
-
-
-
-
-
-
-
-
-
-
-
-
-
-##location = [1, 1]
-##path = []
-##visited = []
-##
-##def solve(location, path, visited):
-##    if location[0] == M and location[1] == N:
-##        return True
-##
-##    visited.append(location)
-##
-##    val = room[location[0] - 1][location[1] - 1]
-##
-##    for i in range(M):
-##        for j in range(N):
-##            if val == (i+1) * (j+1) and not([i+1, j+1] in visited):
-##                if solve([i+1, j+1], path, visited):
-##                    path.append(location)
-##                    return True
-##
-##    return False
-##
-##if solve(location, path, visited):
-##    print("yes")
-##else:
-##    print("no")

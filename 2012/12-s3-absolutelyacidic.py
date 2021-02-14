@@ -2,11 +2,10 @@ import sys
 
 N = int(sys.stdin.readline())
 
-data = []
+data = [0 for i in range(N)]
 
 for i in range(N):
-    R = int(sys.stdin.readline())
-    data.append(R)
+    data[i] = int(sys.stdin.readline())
 
 freqs = {}
 
