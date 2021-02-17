@@ -1,7 +1,0 @@
-s1-implementation
-s2-implementation/math/graph theory
-
-s3-graph theory/data structures
-
-s4-dp/graph theory
-s5-dp/data structures/graph theory

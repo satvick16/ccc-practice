@@ -9,7 +9,7 @@ start = 1
 distance = [9999999 for i in range(N)]
 distance[start-1] = 1
 
-q = []
+q = [] # try collections deque
 q.append([0, start])
 
 processed = [False for i in range(N)]

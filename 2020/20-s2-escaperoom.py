@@ -15,6 +15,10 @@ visited[0][0] = True
 while len(q) > 0:
     s = q.pop(0)
 
+    if room[s[0]][s[1]] == M * N:
+        print("yes")
+        sys.exit()
+
     neighbours = []
 
     for i in range(1, int(room[s[0]][s[1]] ** 0.5 + 1)):
@@ -25,10 +29,6 @@ while len(q) > 0:
                 neighbours.append([int((room[s[0]][s[1]] / i) - 1), i-1])
 
     for n in neighbours:
-        if n[0] == M-1 and n[1] == N-1:
-            print("yes")
-            sys.exit()
-        
         if visited[n[0]][n[1]]:
             continue
 

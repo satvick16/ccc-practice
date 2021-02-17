@@ -1,0 +1,7 @@
+try working backwards
+use global for big data structures instead of passing it to functions
+
+DP archetypes:
+longest increasing subsequence
+coin change
+maximum sum

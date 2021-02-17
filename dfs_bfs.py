@@ -22,6 +22,8 @@ dfs(visited, graph, 1)
 #### breadth-first search (BFS) ####
 print("\nBFS\n")
 
+from collections import deque
+
 graph2 = {1: [2, 4],
           2: [1, 3, 5],
           3: [2, 6],
@@ -29,7 +31,7 @@ graph2 = {1: [2, 4],
           5: [2, 6],
           6: [3, 5]}
 
-queue = []
+queue = deque()
 visited2 = [False for i in range(len(graph2))]
 distance = [0 for i in range(len(graph2))]
 
@@ -38,8 +40,8 @@ visited2[1] = True
 distance[start-1] = 0
 queue.append(start)
 
-while len(queue) > 0:
-    s = queue.pop(0)
+while queue > 0:
+    s = queue.pop()
     print(s)
 
     for neighbour in graph2[s]:
@@ -54,7 +56,7 @@ print(distance)
 
 ################# 2D BFS ######################
 
-q = [start]
+q = [start] # use deque (see above)
 visited = [[False for i in range(M)] for j in range(N)]
 visited[start] = True
 distance = [[0 for i in range(M)] for j in range(N)]
